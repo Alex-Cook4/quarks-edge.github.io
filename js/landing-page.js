@@ -29,3 +29,26 @@ $('div.modal').on('show.bs.modal', function() {
 		}
 	}
 });
+
+var isFixed = false;
+var navBar = document.getElementById('nav-bar');
+var navContainer = document.getElementById('nav-container');
+var triggerPageOffset = 224;//height of the top banner
+    window.addEventListener('scroll', function() {
+      var pageOffset = window.pageYOffset;
+      if (pageOffset > triggerPageOffset) {
+        if (!isFixed) {
+          isFixed = true;
+//we need to make sure the parent containers height does not change when the child's position is fixed
+          navBar.style.minHeight = navBar.scrollHeight + 'px';
+          navContainer.classList.add('fixed-nav-container');
+        }
+      } else {
+        if (isFixed) {
+//user has scrolled upwards so remove the fixed class
+          isFixed = false;
+          navContainer.classList.remove('fixed-nav-container');
+          navBar.style.minHeight = '';
+        }
+      }
+    });
